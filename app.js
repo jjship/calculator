@@ -67,6 +67,7 @@ function tokenize(str) {
       result.push(new Token("Operator", char));     
     }   
   });
+  if (buffer) {result.push(new Token("Literal", buffer.join('')))};
   return result;
 };
       
