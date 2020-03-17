@@ -16,8 +16,7 @@ const buttonValues = [
   ['operator', '/'],
   ['operator', '='],
 ];
-const operators = document.getElementsByClassName('operator');
-const nums = document.getElementsByClassName('nums');
+
 const nested = document.getElementById('nested');
 let calculation = '';
 function isPoint(ch) { return (ch === ".");}
@@ -34,19 +33,24 @@ function addButtons(array) {
 }
 addButtons(buttonValues);
 
+const nums = document.querySelectorAll('.num');
+nums.forEach((button) => {
+  button.addEventListener('click', (e) => { 
+      let num = e.target.innerText;
+      calculation += num;
+      console.log(calculation);
+  });
+})
 
-
-nested.addEventListener('click', (e) => { //callback jako osobna funkcja dla czytelności, osobne eventlistenery i callbacki dla operatorów i numerów
-  if (e.target.className === 'nums') {
-    let num = e.target.innerText;
-    calculation += num;
-
-  } else if (e.target.className === 'operator') {
+const operators = document.querySelectorAll('.operator');
+operators.forEach((button) => {
+  button.addEventListener('click', (e) => {
     let operator = e.target.innerText;
     calculation += operator;
+    console.log(calculation);
+  });
+})
 
-  }
-});
 //defining Token class
 function Token(type, value) {   
   this.type = type;   
