@@ -15,11 +15,8 @@ const buttonValues = [
   ['operator', '*'],
   ['operator', '/'],
   ['operator', '='],
-]
-console.log(buttonValues[0]);
-const input = document.querySelector('input');
-const controls = document.getElementsByClassName('controls');
-const operators = document.getElementsByClassName('operators');
+];
+const operators = document.getElementsByClassName('operator');
 const nums = document.getElementsByClassName('nums');
 const nested = document.getElementById('nested');
 let calculation = '';
@@ -44,7 +41,7 @@ nested.addEventListener('click', (e) => { //callback jako osobna funkcja dla czy
     let num = e.target.innerText;
     calculation += num;
 
-  } else if (e.target.className === 'operators') {
+  } else if (e.target.className === 'operator') {
     let operator = e.target.innerText;
     calculation += operator;
 
