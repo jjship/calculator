@@ -18,7 +18,7 @@ const buttonValues = [
 ];
 
 const nested = document.getElementById('nested');
-let calculation = '';
+let input = '';
 
 function isPoint(ch) { return (ch === ".");}
 function isDigit(ch) { return /\d/.test(ch);}
@@ -39,8 +39,8 @@ const nums = document.querySelectorAll('.num');
 nums.forEach((button) => {
   button.addEventListener('click', (e) => { 
       let num = e.target.innerText;
-      calculation += num;
-      console.log(calculation);
+      input += num;
+      console.log(input);
   });
 })
 
@@ -48,8 +48,8 @@ const operators = document.querySelectorAll('.operator');
 operators.forEach((button) => {
   button.addEventListener('click', (e) => {
     let operator = e.target.innerText;
-    calculation += operator;
-    console.log(calculation);
+    input += operator;
+    console.log(input);
   });
 })
 
@@ -63,7 +63,6 @@ function tokenize(str) {
   var result=[]; //array of tokens  
   var buffer=[];
   str=str.split("");  
-  console.log(str);
   str.forEach(function (char, idx) {    
     if(isDigit(char)||isPoint(char)) {  
       buffer.push(char);   
@@ -79,6 +78,4 @@ function tokenize(str) {
   return result;
 };
 
-
-console.log(tokenize('22.5+3+5')); 
   
