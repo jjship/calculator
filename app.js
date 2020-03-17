@@ -19,9 +19,11 @@ const buttonValues = [
 
 const nested = document.getElementById('nested');
 let calculation = '';
+
 function isPoint(ch) { return (ch === ".");}
 function isDigit(ch) { return /\d/.test(ch);}
 function isOperator(ch) { return /\+|-|\*|\/|\^/.test(ch);}
+
 function addButtons(array) {
   array.forEach((item) => {
     let newButton = document.createElement("button");
@@ -59,28 +61,24 @@ function Token(type, value) {
 
 function tokenize(str) {  
   var result=[]; //array of tokens  
-  var buffer=[];//ostatnia cyfra zostaje w buforze
+  var buffer=[];
   str=str.split("");  
   console.log(str);
   str.forEach(function (char, idx) {    
     if(isDigit(char)||isPoint(char)) {  
-      buffer.push(char);    
+      buffer.push(char);   
     } else if (isOperator(char)) {   
+       //operator => join buffer contents as one Literal and push to result  
       result.push(new Token("Literal", buffer.join('')));  
       buffer =[];  
       result.push(new Token("Operator", char));     
     }   
   });
+  
   if (buffer) {result.push(new Token("Literal", buffer.join('')))};
   return result;
 };
-      
-
-// digit => push ch to NB  
-// decimal point => push ch to NB  
-//operator => join NB contents as one Literal and push to result 
 
 
-
-console.log(tokenize('22.5+3+5')); //doesn't get last digit..
+console.log(tokenize('22.5+3+5')); 
   
