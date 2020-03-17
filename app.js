@@ -9,6 +9,7 @@ const buttonValues = [
   ['num', '7'],
   ['num', '8'],
   ['num', '9'],
+  ['num', '.'],
   ['operator', '+'],
   ['operator', '-'],
   ['operator', '*'],
