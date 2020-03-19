@@ -1,23 +1,6 @@
-const buttonValues = [
-  ['num', '0'],
-  ['num', '1'],
-  ['num', '2'],
-  ['num', '3'],
-  ['num', '4'],
-  ['num', '5'],
-  ['num', '6'],
-  ['num', '7'],
-  ['num', '8'],
-  ['num', '9'],
-  ['num', '.'],
-  ['operator', '+'],
-  ['operator', '-'],
-  ['operator', '*'],
-  ['operator', '/'],
-  ['operator', '='],
-];
+const buttonValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '.', '/', '*', '-', '=', '+'];
 
-const nested = document.getElementById('nested');
+const buttons = document.getElementById('buttons');
 let input = '';
 
 function isPoint(ch) { return (ch === ".");}
@@ -27,10 +10,9 @@ function isOperator(ch) { return /\+|-|\*|\/|\^/.test(ch);}
 function addButtons(array) {
   array.forEach((item) => {
     let newButton = document.createElement("button");
-    newButton.className = item[0];
-    newButton.id = item[1];
-    newButton.innerHTML = item[1];
-    nested.appendChild(newButton);
+    newButton.id = item;
+    newButton.innerHTML = item;
+    buttons.appendChild(newButton);
   });
 }
 addButtons(buttonValues);
