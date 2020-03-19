@@ -1,30 +1,41 @@
+button{
+  font-size: 1rem;
+  border-radius: 5px;
+  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+                inset -2px -2px 3px rgba(0, 0, 0, .6);
+}
+button:hover {
+  background-color: rgb(173, 173, 173);
+}
+
+button:active {
+  box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+              inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
 .wrapper{
   display:grid;
-  grid-gap:.5em;
   grid-auto-columns: minmax(auto, 300px);
   text-align: center;
 }
 .nested{
   display:grid;
-  grid-gap:.5em;
+  gap: 1em .5em;
   grid-template-columns: repeat(4,1fr);
-  grid-template-rows: repeat(4,minmax(40px, auto));
+  grid-template-rows: repeat(4,minmax(50px, auto));
+  font-weight: bolder;
 }
 .nested > div{
 
   padding:1em;
 }
-.controls{
-  background: #09F6C2;;
+.num{
+  background: #EEEEEE
 }
-.nums{
-  background: #09B3F6
-}
-.operators{
-  background: #09F6C2;
+.operator{
+  background: #EEEEEE;
 }
 .wrapper > div{
-  background: #093DF6;
+  background: #565656;
   padding:1em;
 }
 [id = '7'] {
@@ -75,9 +86,8 @@
   grid-column: 4/5;
   grid-row: 3/4;
 }
-[id = '1'] {
-  grid-column: 1/2;
-  grid-row: 3/4;
+[id = '='] {
+  background: #F5B558;
 }
 #input {
   text-align: right;
