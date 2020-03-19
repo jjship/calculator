@@ -1,20 +1,29 @@
 const buttonValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '.', '/', '*', '-', '=', '+'];
-
 const buttons = document.getElementById('buttons');
 let input = '';
 
 function isPoint(ch) { return (ch === ".");}
 function isDigit(ch) { return /\d/.test(ch);}
 function isOperator(ch) { return /\+|-|\*|\/|\^/.test(ch);}
-
 function addButtons(array) {
   array.forEach((item) => {
     let newButton = document.createElement("button");
     newButton.id = item;
     newButton.innerHTML = item;
+    if (isDigit(item) || isPoint(item)) {
+      newButton.className = 'num';
+    } else if (isOperator(item)) { //doesn't seem to work, although while brakpointing seems fine
+      newButton.classname = 'operator';
+    }
     buttons.appendChild(newButton);
   });
 }
+//defining Token class
+function Token(type, value) {   
+  this.type = type;   
+  this.value = value;
+}
+
 addButtons(buttonValues);
 
 const nums = document.querySelectorAll('.num');
@@ -35,12 +44,6 @@ operators.forEach((button) => {
   });
 })
 
-//defining Token class
-function Token(type, value) {   
-  this.type = type;   
-  this.value = value;
-}
-
 function tokenize(str) {  
   var result=[]; //array of tokens  
   var buffer=[];
@@ -55,7 +58,6 @@ function tokenize(str) {
       result.push(new Token("Operator", char));     
     }   
   });
-  
   if (buffer) {result.push(new Token("Literal", buffer.join('')))};
   return result;
 };
