@@ -17,14 +17,14 @@ button:active {
   grid-auto-columns: minmax(auto, 300px);
   text-align: center;
 }
-.nested{
+.buttons{
   display:grid;
   gap: 1em .5em;
   grid-template-columns: repeat(4,1fr);
   grid-template-rows: repeat(4,minmax(50px, auto));
   font-weight: bolder;
 }
-.nested > div{
+.buttons > div{
 
   padding:1em;
 }
