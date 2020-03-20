@@ -22,7 +22,7 @@ button:active {
   gap: 1em 0.5em;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, minmax(50px, auto));
-  font-weight: bolder; prettier?
+  font-weight: bolder;
 }
 .buttons > div {
   padding: 1em;
