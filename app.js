@@ -1,4 +1,4 @@
-const buttonValues = [
+const buttonsArray = [
   1,
   2,
   3,
@@ -16,7 +16,7 @@ const buttonValues = [
   "=",
   "+"
 ];
-const buttons = document.getElementById("buttons");
+const buttonsWrapper = document.getElementById("buttons");
 let input = "";
 
 function isPoint(ch) {
@@ -26,20 +26,19 @@ function isDigit(ch) {
   return /\d/.test(ch);
 }
 function isOperator(ch) {
-  return /\+|-|\*|\/|\^/.test(ch);
+  return /\+|-|\*|\/|\=/.test(ch);
 }
-function addButtons(array) {
-  array.forEach(item => {
+function appendButtonsToWrapper(buttonsArray, buttonsWrapper) {
+  buttonsArray.forEach(item => {
     let newButton = document.createElement("button");
     newButton.id = item;
     newButton.innerHTML = item;
     if (isDigit(item) || isPoint(item)) {
       newButton.className = "num";
     } else if (isOperator(item)) {
-      //doesn't seem to work, although while brakpointing seems fine
-      newButton.classname = "operator";
+      newButton.className = "operator";
     }
-    buttons.appendChild(newButton);
+    buttonsWrapper.appendChild(newButton);
   });
 }
 //defining Token class
@@ -48,7 +47,7 @@ function Token(type, value) {
   this.value = value;
 }
 
-addButtons(buttonValues);
+appendButtonsToWrapper(buttonsArray, buttonsWrapper);
 
 const nums = document.querySelectorAll(".num");
 nums.forEach(button => {
@@ -75,15 +74,18 @@ function tokenize(str) {
   str.forEach(function(char, idx) {
     if (isDigit(char) || isPoint(char)) {
       buffer.push(char);
-    } else if (isOperator(char)) {
+    }
+    if (isOperator(char)) {
       //operator => join buffer contents as one Literal and push to result
       result.push(new Token("Literal", buffer.join("")));
       buffer = [];
       result.push(new Token("Operator", char));
     }
   });
+  //join buffer contents as one Literal and push to result after last operator
   if (buffer) {
     result.push(new Token("Literal", buffer.join("")));
+    buffer = [];
   }
   return result;
 }
