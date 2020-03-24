@@ -1,57 +1,91 @@
-document.addEventListener('DOMContentLoaded' , () =>{
-  const input = document.querySelector('input');
-  const controls = document.getElementsByClassName('controls');
-  const operators = document.getElementsByClassName('operators');
-  const nums = document.getElementsByClassName('nums');
-  let calculation = '';
-  const nested = document.getElementById('nested')
-  function isPoint(ch) { return (ch === ".");}
-  function isDigit(ch) { return /\d/.test(ch);}
-  function isOperator(ch) { return /\+|-|\*|\/|\^/.test(ch);}
+const buttonsArray = [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  0,
+  ".",
+  "/",
+  "*",
+  "-",
+  "=",
+  "+"
+];
+const buttonsWrapper = document.getElementById("buttons");
+let input = "";
 
+function isPoint(ch) {
+  return ch === ".";
+}
+function isDigit(ch) {
+  return /\d/.test(ch);
+}
+function isOperator(ch) {
+  return /\+|-|\*|\/|\=/.test(ch);
+}
+function appendButtonsToWrapper(buttonsArray, buttonsWrapper) {
+  buttonsArray.forEach(item => {
+    let newButton = document.createElement("button");
+    newButton.id = item;
+    newButton.innerHTML = item;
+    if (isDigit(item) || isPoint(item)) {
+      newButton.className = "num";
+    } else if (isOperator(item)) {
+      newButton.className = "operator";
+    }
+    buttonsWrapper.appendChild(newButton);
+  });
+}
+//defining Token class
+function Token(type, value) {
+  this.type = type;
+  this.value = value;
+}
 
+appendButtonsToWrapper(buttonsArray, buttonsWrapper);
 
-  nested.addEventListener('click', (e) => {
-    if (e.target.className === 'nums') {
-      let num = e.target.innerText;
-      calculation += num;
+const nums = document.querySelectorAll(".num");
+nums.forEach(button => {
+  button.addEventListener("click", e => {
+    let num = e.target.innerText;
+    input += num;
+    console.log(input);
+  });
+});
 
-    } else if (e.target.className === 'operators') {
-      let operator = e.target.innerText;
-      calculation += operator;
+const operators = document.querySelectorAll(".operator");
+operators.forEach(button => {
+  button.addEventListener("click", e => {
+    let operator = e.target.innerText;
+    input += operator;
+    console.log(input);
+  });
+});
 
+function tokenize(str) {
+  var result = []; //array of tokens
+  var buffer = [];
+  str = str.split("");
+  str.forEach(function(char, idx) {
+    if (isDigit(char) || isPoint(char)) {
+      buffer.push(char);
+    }
+    if (isOperator(char)) {
+      //operator => join buffer contents as one Literal and push to result
+      result.push(new Token("Literal", buffer.join("")));
+      buffer = [];
+      result.push(new Token("Operator", char));
     }
   });
-  //defining Token class
-  function Token(type, value) {   
-    this.type = type;   
-    this.value = value
+  //join buffer contents as one Literal and push to result after last operator
+  if (buffer) {
+    result.push(new Token("Literal", buffer.join("")));
+    buffer = [];
   }
-
-  function tokenize(str) {  
-    var result=[]; //array of tokens  
-    var buffer=[];
-    str=str.split("");  
-    console.log(str);
-    str.forEach(function (char, idx) {    
-      if(isDigit(char)||isPoint(char)) {  
-        buffer.push(char);    
-      } else if (isOperator(char)) {   
-        result.push(new Token("Literal", buffer.join('')));  
-        buffer =[];  
-        result.push(new Token("Operator", char));     
-      }   
-    });
-    return result;
-  };
-       
-  
-  // digit => push ch to NB  
-  // decimal point => push ch to NB  
-  //operator => join NB contents as one Literal and push to result 
-
-
-
-console.log(tokenize('22.5+3+5'));
-  
-});
+  return result;
+}
