@@ -24,7 +24,6 @@ let calculator = {
   secondNum: null
 };
 const buttonsWrapper = document.getElementById("buttons");
-// let input = "";
 
 function isPoint(ch) {
   return ch === ".";
@@ -52,11 +51,6 @@ function appendButtonsToWrapper(buttonsArray, buttonsWrapper) {
     buttonsWrapper.appendChild(newButton);
   });
 }
-//defining Token class
-// function Token(type, value) {
-//   this.type = type;
-//   this.value = value;
-// }
 
 appendButtonsToWrapper(buttonsArray, buttonsWrapper);
 
@@ -167,26 +161,3 @@ const calculate = {
   "/": (firstNum, secondNum) => firstNum / secondNum,
   "=": (firstNum, secondNum) => secondNum
 };
-
-// function tokenize(str) {
-//   var result = []; //array of tokens
-//   var buffer = [];
-//   str = str.split("");
-//   str.forEach(function(char, idx) {
-//     if (isDigit(char) || isPoint(char)) {
-//       buffer.push(char);
-//     }
-//     if (isOperator(char)) {
-//       //operator => join buffer contents as one Literal and push to result
-//       result.push(new Token("Literal", buffer.join("")));
-//       buffer = [];
-//       result.push(new Token("Operator", char));
-//     }
-//   });
-//   //join buffer contents as one Literal and push to result after last operator
-//   if (buffer) {
-//     result.push(new Token("Literal", buffer.join("")));
-//     buffer = [];
-//   }
-//   return result;
-// }
