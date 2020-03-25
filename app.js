@@ -101,7 +101,7 @@ point.addEventListener("click", e => {
   const value = e.target.innerText;
   const { firstNum, onDisplay, waitingForSecondNum, secondNum } = calculator;
   if (!firstNum) {
-    calculator.firstNum = parseFloat(value);
+    calculator.firstNum = value;
     calculator.onDisplay = value;
     updateDisplay();
     console.log(calculator);
@@ -109,22 +109,28 @@ point.addEventListener("click", e => {
   }
   if (!secondNum) {
     //what about digit with no 0?
-    if (firstNum.includes(value)) {
-      return;
+    if (!waitingForSecondNum) {
+      if (onDisplay.includes(value)) {
+        return;
+      } else {
+        calculator.onDisplay += value;
+        updateDisplay();
+        console.log(calculator);
+        return;
+      }
     } else {
-      calculator.onDisplay += value;
-      calculator.firstNum = parseFloat(calculator.onDisplay);
+      calculator.secondNum = value;
+      calculator.onDisplay = value;
       updateDisplay();
       console.log(calculator);
       return;
     }
   }
   if (secondNum) {
-    if (secondNum.includes(value)) {
+    if (onDisplay.includes(value)) {
       return;
     } else {
       calculator.onDisplay += value;
-      calculator.secondNum = parseFloat(calculator.onDisplay);
       updateDisplay();
       console.log(calculator);
       return;
@@ -155,6 +161,7 @@ operators.forEach(button => {
       return;
     }
     if (secondNum) {
+      // TODO check if theres no point at the end of secondNum
       const result = calculate[operator](firstNum, secondNum);
       calculator.onDisplay = String(result);
       calculator.firstNum = result;
