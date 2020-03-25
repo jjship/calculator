@@ -25,6 +25,11 @@ let calculator = {
 };
 const buttonsWrapper = document.getElementById("buttons");
 
+function updateDisplay() {
+  const displayValue = document.querySelector(".display").value;
+  displayValue = calculator.onDisplay;
+}
+
 function isPoint(ch) {
   return ch === ".";
 }
@@ -62,24 +67,28 @@ digits.forEach(button => {
     if (!firstNum) {
       calculator.firstNum = parseFloat(value);
       calculator.onDisplay = value;
+      updateDisplay();
       console.log(calculator);
       return;
     }
     if (!waitingForSecondNum) {
       calculator.onDisplay += value;
       calculator.firstNum = parseFloat(calculator.onDisplay);
+      updateDisplay();
       console.log(calculator);
       return;
     }
     if (waitingForSecondNum && !secondNum) {
       calculator.secondNum = parseFloat(value);
       calculator.onDisplay = value;
+      updateDisplay();
       console.log(calculator);
       return;
     }
     if (waitingForSecondNum && secondNum) {
       calculator.onDisplay += value;
       calculator.secondNum = parseFloat(calculator.onDisplay);
+      updateDisplay();
       console.log(calculator);
       return;
     }
@@ -94,6 +103,7 @@ point.addEventListener("click", e => {
   if (!firstNum) {
     calculator.firstNum = parseFloat(value);
     calculator.onDisplay = value;
+    updateDisplay();
     console.log(calculator);
     return;
   }
@@ -104,6 +114,7 @@ point.addEventListener("click", e => {
     } else {
       calculator.onDisplay += value;
       calculator.firstNum = parseFloat(calculator.onDisplay);
+      updateDisplay();
       console.log(calculator);
       return;
     }
@@ -114,6 +125,7 @@ point.addEventListener("click", e => {
     } else {
       calculator.onDisplay += value;
       calculator.secondNum = parseFloat(calculator.onDisplay);
+      updateDisplay();
       console.log(calculator);
       return;
     }
@@ -138,6 +150,7 @@ operators.forEach(button => {
       //(what if the operator is before a digit?)
       calculator.operator = value;
       calculator.waitingForSecondNum = true;
+      updateDisplay();
       console.log(calculator);
       return;
     }
@@ -148,6 +161,7 @@ operators.forEach(button => {
       calculator.operator = null;
       calculator.waitingForSecondNum = true;
       calculator.secondNum = null;
+      updateDisplay();
       console.log(calculator);
       return;
     }
