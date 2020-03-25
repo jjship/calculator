@@ -26,8 +26,8 @@ let calculator = {
 const buttonsWrapper = document.getElementById("buttons");
 
 function updateDisplay() {
-  const displayValue = document.querySelector(".display").value;
-  displayValue = calculator.onDisplay;
+  let display = document.querySelector(".display");
+  display.value = calculator.onDisplay;
 }
 
 function isPoint(ch) {
