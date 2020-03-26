@@ -165,7 +165,7 @@ operators.forEach(button => {
       const result = calculate[operator](firstNum, secondNum);
       calculator.onDisplay = String(result);
       calculator.firstNum = result;
-      calculator.operator = null;
+      calculator.operator = value;
       calculator.waitingForSecondNum = true;
       calculator.secondNum = null;
       updateDisplay();
