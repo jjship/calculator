@@ -71,16 +71,16 @@ digits.forEach(button => {
     if (!waitingForSecondNum) {
       if (onDisplay === "0") calculator.onDisplay = value;
       else calculator.onDisplay += value;
-      calculator.firstNum = parseFloat(calculator.onDisplay); //should this go to operator handler?
+      calculator.firstNum = parseFloat(calculator.onDisplay);
       updateDisplay();
     } else {
       if (!secondNum && onDisplay == firstNum) {
         calculator.onDisplay = value;
-        calculator.secondNum = parseFloat(calculator.onDisplay); //should this go to operator handler?
+        calculator.secondNum = parseFloat(calculator.onDisplay);
         updateDisplay();
       } else {
         calculator.onDisplay += value;
-        calculator.secondNum = parseFloat(calculator.onDisplay); //should this go to operator handler?
+        calculator.secondNum = parseFloat(calculator.onDisplay);
         updateDisplay();
       }
     }
@@ -90,7 +90,7 @@ digits.forEach(button => {
 const point = document.querySelector(".point");
 point.addEventListener("click", e => {
   const value = e.target.innerText;
-  const { firstNum, onDisplay, waitingForSecondNum, secondNum } = calculator;
+  const { onDisplay } = calculator;
   if (onDisplay.includes(value)) return;
   calculator.onDisplay += value;
   updateDisplay();
@@ -109,11 +109,8 @@ operators.forEach(button => {
       } else return;
     }
     if (!waitingForSecondNum) {
-      // calculator.firstNum = parseFloat(calculator.onDisplay);
       calculator.operator = value;
       calculator.waitingForSecondNum = true;
-      //updateDisplay();
-      console.table(calculator);
       return;
     }
     if (secondNum) {
@@ -127,7 +124,6 @@ operators.forEach(button => {
       calculator.waitingForSecondNum = true;
       calculator.secondNum = null;
       updateDisplay();
-      console.table(calculator);
       return;
     } else {
       calculator.operator = value;
