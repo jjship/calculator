@@ -88,7 +88,7 @@ function handlePoint(value) {
   calculator.onDisplay += value;
 }
 function handleOperator(value) {
-  const { firstNum, onDisplay, operator } = calculator;
+  const { firstNum, onDisplay, operator, waitingForSecondNum } = calculator;
   function setOperator(value) {
     if (value === "-" && onDisplay === "0") {
       calculator.onDisplay = value;
@@ -110,7 +110,7 @@ function handleOperator(value) {
     calculator.waitingForSecondNum = true;
     updateDisplay(calculator.onDisplay);
   }
-  if (!firstNum) setOperator(value);
+  if (!firstNum || waitingForSecondNum) setOperator(value);
   else performCalc(value);
 }
 
