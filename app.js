@@ -116,24 +116,24 @@ function handleOperator(value) {
 
 const digits = document.querySelectorAll(".digit");
 digits.forEach(button => {
-  button.addEventListener("click", e => {
-    let input = e.target.innerText;
+  button.addEventListener("click", choice => {
+    let input = choice.target.innerText;
     handleDigit(input);
     updateDisplay(calculator.onDisplay);
   });
 });
 
 const point = document.querySelector(".point");
-point.addEventListener("click", e => {
-  const input = e.target.innerText;
+point.addEventListener("click", choice => {
+  const input = choice.target.innerText;
   handlePoint(input);
   updateDisplay(calculator.onDisplay);
 });
 
 const operators = document.querySelectorAll(".operator");
 operators.forEach(button => {
-  button.addEventListener("click", e => {
-    const input = e.target.innerText;
+  button.addEventListener("click", choice => {
+    const input = choice.target.innerText;
     handleOperator(input);
   });
 });
