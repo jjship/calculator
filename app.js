@@ -16,8 +16,6 @@ const buttonsArray = [
   "=",
   "+"
 ];
-const buttonsWrapper = document.getElementById("buttons");
-let input = "";
 
 function isPoint(ch) {
   return ch === ".";
@@ -28,64 +26,115 @@ function isDigit(ch) {
 function isOperator(ch) {
   return /\+|-|\*|\/|\=/.test(ch);
 }
-function appendButtonsToWrapper(buttonsArray, buttonsWrapper) {
-  buttonsArray.forEach(item => {
+
+function setButtonClassName(button, item) {
+  if (isDigit(item)) {
+    button.className = "digit";
+  }
+  if (isPoint(item)) {
+    button.className = "point";
+  }
+  if (isOperator(item)) {
+    button.className = "operator";
+  }
+}
+
+const buttonsWrapper = document.getElementById("wrapper");
+function appendButtonsToWrapper(values, wrapper) {
+  values.forEach(item => {
     let newButton = document.createElement("button");
     newButton.id = item;
     newButton.innerHTML = item;
-    if (isDigit(item) || isPoint(item)) {
-      newButton.className = "num";
-    } else if (isOperator(item)) {
-      newButton.className = "operator";
-    }
-    buttonsWrapper.appendChild(newButton);
+    setButtonClassName(newButton, item);
+    wrapper.appendChild(newButton);
   });
 }
-//defining Token class
-function Token(type, value) {
-  this.type = type;
-  this.value = value;
-}
-
 appendButtonsToWrapper(buttonsArray, buttonsWrapper);
 
-const nums = document.querySelectorAll(".num");
-nums.forEach(button => {
-  button.addEventListener("click", e => {
-    let num = e.target.innerText;
-    input += num;
-    console.log(input);
+let calculator = {
+  onDisplay: "0",
+  firstNum: null,
+  operator: null,
+  waitingForSecondNum: false
+};
+const calculate = {
+  "+": (firstNum, secondNum) => firstNum + secondNum,
+  "-": (firstNum, secondNum) => firstNum - secondNum,
+  "*": (firstNum, secondNum) => firstNum * secondNum,
+  "/": (firstNum, secondNum) => firstNum / secondNum,
+  "=": (firstNum, secondNum) => secondNum
+};
+
+function updateDisplay(value) {
+  let display = document.querySelector(".display");
+  display.value = value;
+}
+function handleDigit(value) {
+  const { firstNum, onDisplay, waitingForSecondNum } = calculator;
+  if (!firstNum && onDisplay === "0") {
+    calculator.onDisplay = value;
+    return;
+  }
+  if (waitingForSecondNum) {
+    calculator.onDisplay = value;
+    calculator.waitingForSecondNum = false;
+    return;
+  }
+  calculator.onDisplay += value;
+}
+function handlePoint(value) {
+  const { onDisplay } = calculator;
+  if (onDisplay.includes(value)) return;
+  calculator.onDisplay += value;
+}
+function handleOperator(value) {
+  const { firstNum, onDisplay, operator, waitingForSecondNum } = calculator;
+  function setOperator(value) {
+    // check for dividing by 0
+    if (value === "-" && onDisplay === "0") {
+      calculator.onDisplay = value;
+      return;
+    } else {
+      calculator.operator = value;
+      calculator.waitingForSecondNum = true;
+      calculator.firstNum = parseFloat(onDisplay);
+    }
+  }
+  function performCalc(value) {
+    const result = calculate[operator](
+      firstNum,
+      parseFloat(calculator.onDisplay)
+    );
+    calculator.onDisplay = String(result);
+    calculator.firstNum = result;
+    calculator.operator = value;
+    calculator.waitingForSecondNum = true;
+    updateDisplay(calculator.onDisplay);
+  }
+  if (!firstNum || waitingForSecondNum) setOperator(value);
+  else performCalc(value);
+}
+
+const digits = document.querySelectorAll(".digit");
+digits.forEach(button => {
+  button.addEventListener("click", choice => {
+    let input = choice.target.innerText;
+    handleDigit(input);
+    updateDisplay(calculator.onDisplay);
   });
+});
+
+const point = document.querySelector(".point");
+point.addEventListener("click", choice => {
+  const input = choice.target.innerText;
+  handlePoint(input);
+  updateDisplay(calculator.onDisplay);
 });
 
 const operators = document.querySelectorAll(".operator");
 operators.forEach(button => {
-  button.addEventListener("click", e => {
-    let operator = e.target.innerText;
-    input += operator;
-    console.log(input);
+  button.addEventListener("click", choice => {
+    const input = choice.target.innerText;
+    handleOperator(input);
   });
 });
-
-function tokenize(str) {
-  var result = []; //array of tokens
-  var buffer = [];
-  str = str.split("");
-  str.forEach(function(char, idx) {
-    if (isDigit(char) || isPoint(char)) {
-      buffer.push(char);
-    }
-    if (isOperator(char)) {
-      //operator => join buffer contents as one Literal and push to result
-      result.push(new Token("Literal", buffer.join("")));
-      buffer = [];
-      result.push(new Token("Operator", char));
-    }
-  });
-  //join buffer contents as one Literal and push to result after last operator
-  if (buffer) {
-    result.push(new Token("Literal", buffer.join("")));
-    buffer = [];
-  }
-  return result;
-}
