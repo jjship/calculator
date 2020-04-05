@@ -39,7 +39,7 @@ function setButtonClassName(button, item) {
   }
 }
 
-const buttonsWrapper = document.getElementById("buttons");
+const buttonsWrapper = document.getElementById("wrapper");
 function appendButtonsToWrapper(values, wrapper) {
   values.forEach(item => {
     let newButton = document.createElement("button");
@@ -90,6 +90,7 @@ function handlePoint(value) {
 function handleOperator(value) {
   const { firstNum, onDisplay, operator, waitingForSecondNum } = calculator;
   function setOperator(value) {
+    // check for dividing by 0
     if (value === "-" && onDisplay === "0") {
       calculator.onDisplay = value;
       return;
