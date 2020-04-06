@@ -38,8 +38,7 @@ function setButtonClassName(button, item) {
     button.className = "operator";
   }
 }
-
-const buttonsWrapper = document.getElementById("buttons");
+const buttonsWrapper = document.getElementById("wrapper");
 function appendButtonsToWrapper(values, wrapper) {
   values.forEach(item => {
     let newButton = document.createElement("button");
@@ -49,91 +48,94 @@ function appendButtonsToWrapper(values, wrapper) {
     wrapper.appendChild(newButton);
   });
 }
-appendButtonsToWrapper(buttonsArray, buttonsWrapper);
-
 let calculator = {
-  onDisplay: "0",
+  inputStore: "0",
   firstNum: null,
   operator: null,
   waitingForSecondNum: false
 };
-const calculate = {
-  "+": (firstNum, secondNum) => firstNum + secondNum,
-  "-": (firstNum, secondNum) => firstNum - secondNum,
-  "*": (firstNum, secondNum) => firstNum * secondNum,
-  "/": (firstNum, secondNum) => firstNum / secondNum,
-  "=": (firstNum, secondNum) => secondNum
-};
-
+function calculate(operator, firstNum, secondNum) {
+  if (operator === "+") return firstNum + secondNum;
+  if (operator === "-") return firstNum - secondNum;
+  if (operator === "*") return firstNum * secondNum;
+  if (operator === "/") return firstNum / secondNum;
+  if (operator === "=") return secondNum;
+}
 function updateDisplay(value) {
-  let display = document.querySelector(".display");
+  const display = document.querySelector(".display");
   display.value = value;
 }
 function handleDigit(value) {
-  const { firstNum, onDisplay, waitingForSecondNum } = calculator;
-  if (!firstNum && onDisplay === "0") {
-    calculator.onDisplay = value;
+  const { firstNum, inputStore, waitingForSecondNum } = calculator;
+  if (!firstNum && inputStore === "0") {
+    calculator.inputStore = value;
     return;
   }
   if (waitingForSecondNum) {
-    calculator.onDisplay = value;
+    calculator.inputStore = value;
     calculator.waitingForSecondNum = false;
     return;
   }
-  calculator.onDisplay += value;
+  calculator.inputStore += value;
 }
 function handlePoint(value) {
-  const { onDisplay } = calculator;
-  if (onDisplay.includes(value)) return;
-  calculator.onDisplay += value;
+  const { inputStore } = calculator;
+  if (inputStore.includes(value)) return;
+  calculator.inputStore += value;
 }
 function handleOperator(value) {
-  const { firstNum, onDisplay, operator, waitingForSecondNum } = calculator;
+  const { firstNum, inputStore, operator, waitingForSecondNum } = calculator;
   function setOperator(value) {
-    if (value === "-" && onDisplay === "0") {
-      calculator.onDisplay = value;
+    // check for dividing by 0
+    if (value === "-" && inputStore === "0") {
+      calculator.inputStore = value;
       return;
     } else {
       calculator.operator = value;
       calculator.waitingForSecondNum = true;
-      calculator.firstNum = parseFloat(onDisplay);
+      calculator.firstNum = parseFloat(inputStore);
     }
   }
   function performCalc(value) {
-    const result = calculate[operator](
+    const result = calculate(
+      operator,
       firstNum,
-      parseFloat(calculator.onDisplay)
+      parseFloat(calculator.inputStore)
     );
-    calculator.onDisplay = String(result);
+    calculator.inputStore = String(result);
     calculator.firstNum = result;
     calculator.operator = value;
     calculator.waitingForSecondNum = true;
-    updateDisplay(calculator.onDisplay);
+    updateDisplay(calculator.inputStore);
   }
   if (!firstNum || waitingForSecondNum) setOperator(value);
   else performCalc(value);
 }
 
+function handleDigitInput(e) {
+  let inputValue = e.target.innerText;
+  handleDigit(inputValue);
+  updateDisplay(calculator.inputStore);
+}
+function handlePointInput(e) {
+  const inputValue = e.target.innerText;
+  handlePoint(inputValue);
+  updateDisplay(calculator.inputStore);
+}
+function handleOperatorInput(e) {
+  const inputValue = e.target.innerText;
+  handleOperator(inputValue);
+}
+
+appendButtonsToWrapper(buttonsArray, buttonsWrapper);
 const digits = document.querySelectorAll(".digit");
-digits.forEach(button => {
-  button.addEventListener("click", choice => {
-    let input = choice.target.innerText;
-    handleDigit(input);
-    updateDisplay(calculator.onDisplay);
-  });
-});
-
 const point = document.querySelector(".point");
-point.addEventListener("click", choice => {
-  const input = choice.target.innerText;
-  handlePoint(input);
-  updateDisplay(calculator.onDisplay);
-});
-
 const operators = document.querySelectorAll(".operator");
+
+digits.forEach(button => {
+  button.addEventListener("click", handleDigitInput);
+});
+point.addEventListener("click", handlePointInput);
 operators.forEach(button => {
-  button.addEventListener("click", choice => {
-    const input = choice.target.innerText;
-    handleOperator(input);
-  });
+  button.addEventListener("click", handleOperatorInput);
 });
