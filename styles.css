@@ -1,8 +1,6 @@
 button {
   font-size: 1rem;
   border-radius: 5px;
-  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6),
-    inset -2px -2px 3px rgba(0, 0, 0, 0.6);
 }
 button:hover {
   background-color: rgb(173, 173, 173);
@@ -12,27 +10,23 @@ button:active {
   box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6),
     inset 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
-.buttons {
-  font-weight: bolder;
+button:focus {
+  outline: 0;
 }
-.buttons > div {
-  padding: 1em;
+input {
+  font-size: 2rem;
+  text-align: right;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+.wrapper {
+  background: #565656;
+  padding: 1rem;
+  padding-bottom: 2rem;
 }
 .num {
   background: #eeeeee;
 }
 .operator {
   background: #eeeeee;
-}
-.wrapper > div {
-  background: #565656;
-  padding: 1em;
-}
-input {
-  text-align: right;
-  color: #b3f40b;
-  font-weight: 900;
-}
-[id="="] {
-  background: #f5b558;
 }
