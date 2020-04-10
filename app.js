@@ -86,7 +86,6 @@ function handlePoint(value) {
 function handleOperator(value) {
   const { firstNum, inputStore, operator, waitingForSecondNum } = calculator;
   function setOperator(value) {
-    // check for dividing by 0
     if (value === "-" && inputStore === "0") {
       calculator.inputStore = value;
       return;
