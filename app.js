@@ -98,7 +98,8 @@ function handleOperator(value) {
   }
   function dontDivideByZero() {
     updateDisplay("not able to / by 0");
-    calculator.operator = null;
+    calculator.waitingForSecondNum = true;
+    calculator.inputStore = "";
   }
   function performCalc(value) {
     const result = calculate(
@@ -113,7 +114,7 @@ function handleOperator(value) {
     updateDisplay(calculator.inputStore);
   }
   if (!firstNum || waitingForSecondNum) setOperator(value);
-  if (operator === "/" && inputStore === "0") dontDivideByZero();
+  else if (operator === "/" && inputStore === "0") dontDivideByZero();
   else performCalc(value);
 }
 
