@@ -14,7 +14,7 @@ const buttonsArray = [
   "*",
   "-",
   "=",
-  "+"
+  "+",
 ];
 
 function isPoint(ch) {
@@ -40,7 +40,7 @@ function setButtonClassName(button, item) {
 }
 const buttonsWrapper = document.getElementById("wrapper");
 function appendButtonsToWrapper(values, wrapper) {
-  values.forEach(item => {
+  values.forEach((item) => {
     let newButton = document.createElement("button");
     newButton.id = item;
     newButton.innerHTML = item;
@@ -52,7 +52,7 @@ let calculator = {
   inputStore: "0",
   firstNum: null,
   operator: null,
-  waitingForSecondNum: false
+  waitingForSecondNum: false,
 };
 function calculate(operator, firstNum, secondNum) {
   if (operator === "+") return firstNum + secondNum;
@@ -96,6 +96,10 @@ function handleOperator(value) {
       calculator.firstNum = parseFloat(inputStore);
     }
   }
+  function dontDivideByZero() {
+    updateDisplay("not able to / by 0");
+    calculator.operator = null;
+  }
   function performCalc(value) {
     const result = calculate(
       operator,
@@ -109,6 +113,7 @@ function handleOperator(value) {
     updateDisplay(calculator.inputStore);
   }
   if (!firstNum || waitingForSecondNum) setOperator(value);
+  if (operator === "/" && inputStore === "0") dontDivideByZero();
   else performCalc(value);
 }
 
@@ -132,10 +137,12 @@ const digits = document.querySelectorAll(".digit");
 const point = document.querySelector(".point");
 const operators = document.querySelectorAll(".operator");
 
-digits.forEach(button => {
+digits.forEach((button) => {
   button.addEventListener("click", handleDigitInput);
 });
+
 point.addEventListener("click", handlePointInput);
-operators.forEach(button => {
+
+operators.forEach((button) => {
   button.addEventListener("click", handleOperatorInput);
 });
