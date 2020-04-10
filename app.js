@@ -38,6 +38,7 @@ function setButtonClassName(button, item) {
     button.className = "operator";
   }
 }
+
 const buttonsWrapper = document.getElementById("wrapper");
 function appendButtonsToWrapper(values, wrapper) {
   values.forEach((item) => {
