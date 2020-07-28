@@ -59,7 +59,7 @@ function appendButtonsToWrapper(values, wrapper) {
   });
 }
 
-let calculator = {
+const calculator = {
   inputStore: "0",
   firstNum: null,
   operator: null,
