@@ -1,18 +1,13 @@
-.wrapper {
+.keyboard {
   display: grid;
   grid-template-columns: repeat(4, minmax(25px, 50px));
-  grid-template-rows: repeat(6, minmax(25px, 50px));
+  grid-template-rows: repeat(5, minmax(25px, 50px));
   grid-template-areas:
-    "input input input input"
     "AC C divide multiply"
     "seven eight nine minus"
     "four five six plus"
     "one two three equals"
     "zero zero point equals";
-}
-
-input {
-  grid-area: input;
 }
 
 [id="7"] {

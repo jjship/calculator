@@ -49,16 +49,16 @@ function setButtonClassName(button, item) {
   }
 }
 
-// Select wrapper from DOM & append buttons
-const buttonsWrapper = document.getElementById("wrapper");
+// Select keyboard from DOM & append buttons
+const keyboard = document.getElementById("keyboard");
 
-function appendButtonsToWrapper(values, wrapper) {
+function appendButtonsTokeyboard(values, keyboard) {
   values.forEach((item) => {
     let newButton = document.createElement("button");
     newButton.id = item;
     newButton.innerHTML = item;
     setButtonClassName(newButton, item);
-    wrapper.appendChild(newButton);
+    keyboard.appendChild(newButton);
   });
 }
 
@@ -192,7 +192,7 @@ function handleAllClearInput(e) {
 }
 
 // DOM setup
-appendButtonsToWrapper(buttonsArray, buttonsWrapper);
+appendButtonsTokeyboard(buttonsArray, keyboard);
 const digits = document.querySelectorAll(".digit");
 const point = document.querySelector(".point");
 const operators = document.querySelectorAll(".operator");
