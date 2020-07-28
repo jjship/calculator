@@ -19,6 +19,7 @@ const buttonsArray = [
   "AC",
 ];
 
+// Check character type
 function isPoint(ch) {
   return ch === ".";
 }
@@ -29,6 +30,7 @@ function isOperator(ch) {
   return /\+|-|\*|\/|\=/.test(ch);
 }
 
+// Set buttons class name
 function setButtonClassName(button, item) {
   if (isDigit(item)) {
     button.className = "digit";
@@ -47,6 +49,7 @@ function setButtonClassName(button, item) {
   }
 }
 
+// Select wrapper from DOM & append buttons
 const buttonsWrapper = document.getElementById("wrapper");
 
 function appendButtonsToWrapper(values, wrapper) {
@@ -59,6 +62,7 @@ function appendButtonsToWrapper(values, wrapper) {
   });
 }
 
+// Initialize calculator object
 const calculator = {
   inputStore: "0",
   firstNum: null,
@@ -66,6 +70,7 @@ const calculator = {
   waitingForSecondNum: false,
 };
 
+// Perform calculation
 function calculate(operator, firstNum, secondNum) {
   if (operator === "+") return firstNum + secondNum;
   if (operator === "-") return firstNum - secondNum;
@@ -74,11 +79,13 @@ function calculate(operator, firstNum, secondNum) {
   if (operator === "=") return secondNum;
 }
 
+// Update display
 function updateDisplay(value) {
   const display = document.querySelector(".display");
   display.value = value;
 }
 
+// Character handlers
 function handleDigit(value) {
   const { firstNum, inputStore, waitingForSecondNum } = calculator;
   if (!firstNum && inputStore === "0") {
@@ -184,6 +191,7 @@ function handleAllClearInput(e) {
   handleAllClear();
 }
 
+// DOM setup
 appendButtonsToWrapper(buttonsArray, buttonsWrapper);
 const digits = document.querySelectorAll(".digit");
 const point = document.querySelector(".point");
