@@ -1,14 +1,15 @@
 .wrapper {
   max-width: 200px;
   display: grid;
-  grid-template-columns: repeat(4, 50px);
-  grid-template-rows: repeat(5, minmax(50px, auto));
+  grid-template-columns: repeat(4, minmax(50px, auto));
+  grid-template-rows: repeat(6, minmax(50px, auto));
   grid-template-areas:
     "input input input input"
-    "seven eight nine divide"
-    "four five six multiply"
-    "one two three minus"
-    "zero point equals plus";
+    "AC C divide multiply"
+    "seven eight nine minus"
+    "four five six plus"
+    "one two three equals"
+    "zero zero point equals";
 }
 input {
   grid-area: input;
@@ -49,9 +50,21 @@ input {
 [id="-"] {
   grid-area: minus;
 }
+[id="+"] {
+  grid-area: plus;
+}
 [id="="] {
   grid-area: equals;
 }
 [id="."] {
   grid-area: point;
+}
+[id="C"] {
+  grid-area: C;
+}
+[id="AC"] {
+  grid-area: AC;
+}
+[id="0"] {
+  grid-area: zero;
 }
