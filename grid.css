@@ -1,8 +1,7 @@
 .wrapper {
-  max-width: 200px;
   display: grid;
-  grid-template-columns: repeat(4, minmax(50px, auto));
-  grid-template-rows: repeat(6, minmax(50px, auto));
+  grid-template-columns: repeat(4, minmax(25px, 50px));
+  grid-template-rows: repeat(6, minmax(25px, 50px));
   grid-template-areas:
     "input input input input"
     "AC C divide multiply"
