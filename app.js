@@ -52,7 +52,7 @@ function setButtonClassName(button, item) {
 // Select keyboard from DOM & append buttons
 const keyboard = document.getElementById("keyboard");
 
-function appendButtonsTokeyboard(values, keyboard) {
+function appendButtonsToKeyboard(values, keyboard) {
   values.forEach((item) => {
     let newButton = document.createElement("button");
     newButton.id = item;
@@ -192,7 +192,7 @@ function handleAllClearInput(e) {
 }
 
 // DOM setup
-appendButtonsTokeyboard(buttonsArray, keyboard);
+appendButtonsToKeyboard(buttonsArray, keyboard);
 const digits = document.querySelectorAll(".digit");
 const point = document.querySelector(".point");
 const operators = document.querySelectorAll(".operator");
