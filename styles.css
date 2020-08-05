@@ -1,7 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 button {
   font-size: 1rem;
   border-radius: 5px;
 }
+
 button:hover {
   background-color: rgb(173, 173, 173);
 }
@@ -10,23 +24,34 @@ button:active {
   box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6),
     inset 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
+
 button:focus {
   outline: 0;
 }
+
 input {
   font-size: 2rem;
   text-align: right;
   font-weight: 900;
   margin-bottom: 1rem;
+  max-width: 200px;
+  padding: 0.5rem 0.5rem 0.5rem 0.1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
 }
+
 .wrapper {
   background: #565656;
   padding: 1rem;
   padding-bottom: 2rem;
+  border-radius: 3px;
 }
+
 .num {
   background: #eeeeee;
 }
+
 .operator {
   background: #eeeeee;
 }

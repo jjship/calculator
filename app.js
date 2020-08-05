@@ -15,8 +15,11 @@ const buttonsArray = [
   "-",
   "=",
   "+",
+  "C",
+  "AC",
 ];
 
+// Check character type
 function isPoint(ch) {
   return ch === ".";
 }
@@ -27,6 +30,7 @@ function isOperator(ch) {
   return /\+|-|\*|\/|\=/.test(ch);
 }
 
+// Set buttons class name
 function setButtonClassName(button, item) {
   if (isDigit(item)) {
     button.className = "digit";
@@ -37,24 +41,36 @@ function setButtonClassName(button, item) {
   if (isOperator(item)) {
     button.className = "operator";
   }
+  if (item === "C") {
+    button.className = "clear";
+  }
+  if (item === "AC") {
+    button.className = "allClear";
+  }
 }
 
-const buttonsWrapper = document.getElementById("wrapper");
-function appendButtonsToWrapper(values, wrapper) {
+// Select keyboard from DOM & append buttons
+const keyboard = document.getElementById("keyboard");
+
+function appendButtonsToKeyboard(values, keyboard) {
   values.forEach((item) => {
     let newButton = document.createElement("button");
     newButton.id = item;
     newButton.innerHTML = item;
     setButtonClassName(newButton, item);
-    wrapper.appendChild(newButton);
+    keyboard.appendChild(newButton);
   });
 }
-let calculator = {
+
+// Initialize calculator object
+const calculator = {
   inputStore: "0",
   firstNum: null,
   operator: null,
   waitingForSecondNum: false,
 };
+
+// Perform calculation
 function calculate(operator, firstNum, secondNum) {
   if (operator === "+") return firstNum + secondNum;
   if (operator === "-") return firstNum - secondNum;
@@ -62,10 +78,14 @@ function calculate(operator, firstNum, secondNum) {
   if (operator === "/") return firstNum / secondNum;
   if (operator === "=") return secondNum;
 }
+
+// Update display
 function updateDisplay(value) {
   const display = document.querySelector(".display");
   display.value = value;
 }
+
+// Character handlers
 function handleDigit(value) {
   const { firstNum, inputStore, waitingForSecondNum } = calculator;
   if (!firstNum && inputStore === "0") {
@@ -79,11 +99,13 @@ function handleDigit(value) {
   }
   calculator.inputStore += value;
 }
+
 function handlePoint(value) {
   const { inputStore } = calculator;
   if (inputStore.includes(value)) return;
   calculator.inputStore += value;
 }
+
 function handleOperator(value) {
   const { firstNum, inputStore, operator, waitingForSecondNum } = calculator;
   function setOperator(value) {
@@ -118,25 +140,64 @@ function handleOperator(value) {
   else performCalc(value);
 }
 
+function handleClear() {
+  const { waitingForSecondNum, inputStore } = calculator;
+  function clearCharacter() {
+    calculator.inputStore = inputStore.slice(0, -1);
+  }
+  function clearOperator() {
+    calculator.operator = null;
+    calculator.waitingForSecondNum = false;
+  }
+  if (waitingForSecondNum) clearOperator();
+  else clearCharacter();
+}
+
+function handleAllClear() {
+  function resetCalculator() {
+    calculator.inputStore = "0";
+    calculator.firstNum = null;
+    calculator.operator = null;
+    calculator.waitingForSecondNum = false;
+    updateDisplay(calculator.inputStore);
+  }
+  resetCalculator();
+}
+
+// Event handlers
 function handleDigitInput(e) {
   let inputValue = e.target.innerText;
   handleDigit(inputValue);
   updateDisplay(calculator.inputStore);
 }
+
 function handlePointInput(e) {
   const inputValue = e.target.innerText;
   handlePoint(inputValue);
   updateDisplay(calculator.inputStore);
 }
+
 function handleOperatorInput(e) {
   const inputValue = e.target.innerText;
   handleOperator(inputValue);
 }
 
-appendButtonsToWrapper(buttonsArray, buttonsWrapper);
+function handleClearInput(e) {
+  handleClear();
+  updateDisplay(calculator.inputStore);
+}
+
+function handleAllClearInput(e) {
+  handleAllClear();
+}
+
+// DOM setup
+appendButtonsToKeyboard(buttonsArray, keyboard);
 const digits = document.querySelectorAll(".digit");
 const point = document.querySelector(".point");
 const operators = document.querySelectorAll(".operator");
+const clear = document.querySelector(".clear");
+const allClear = document.querySelector(".allClear");
 
 digits.forEach((button) => {
   button.addEventListener("click", handleDigitInput);
@@ -147,3 +208,7 @@ point.addEventListener("click", handlePointInput);
 operators.forEach((button) => {
   button.addEventListener("click", handleOperatorInput);
 });
+
+clear.addEventListener("click", handleClearInput);
+
+allClear.addEventListener("click", handleAllClearInput);
