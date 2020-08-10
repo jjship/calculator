@@ -1,0 +1,83 @@
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(25px, 50px));
+  grid-template-rows: repeat(5, minmax(25px, 50px));
+  grid-template-areas:
+    "AC C divide multiply"
+    "seven eight nine minus"
+    "four five six plus"
+    "one two three equals"
+    "zero zero point equals";
+}
+
+[id="7"] {
+  grid-area: seven;
+}
+
+[id="8"] {
+  grid-area: eight;
+}
+
+[id="9"] {
+  grid-area: nine;
+}
+
+[id="/"] {
+  grid-area: divide;
+}
+
+[id="4"] {
+  grid-area: four;
+}
+
+[id="5"] {
+  grid-area: five;
+}
+
+[id="6"] {
+  grid-area: six;
+}
+
+[id="*"] {
+  grid-area: multiply;
+}
+
+[id="1"] {
+  grid-area: one;
+}
+
+[id="2"] {
+  grid-area: two;
+}
+
+[id="3"] {
+  grid-area: three;
+}
+
+[id="-"] {
+  grid-area: minus;
+}
+
+[id="+"] {
+  grid-area: plus;
+}
+
+[id="="] {
+  grid-area: equals;
+}
+
+[id="."] {
+  grid-area: point;
+}
+
+[id="C"] {
+  grid-area: C;
+}
+
+[id="AC"] {
+  grid-area: AC;
+}
+
+[id="0"] {
+  grid-area: zero;
+}
