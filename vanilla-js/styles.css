@@ -14,14 +14,16 @@ body {
 button {
   font-size: 1rem;
   border-radius: 5px;
+  background-color: white;
+  margin: 2px;
 }
 
 button:hover {
-  background-color: rgb(173, 173, 173);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 button:active {
-  box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+  box-shadow: inset -2px -2px 3px rgba(0, 0, 0, 0.6),
     inset 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
@@ -39,19 +41,25 @@ input {
   border: none;
   border-radius: 5px;
   background-color: white;
+  border: 1px solid black;
 }
 
 .wrapper {
-  background: #565656;
+  /* background: #190850; */
   padding: 1rem;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
   border-radius: 3px;
+  border: 1px solid black;
 }
 
-.num {
-  background: #eeeeee;
+.digit {
+  /* background: #29d688; */
 }
 
 .operator {
-  background: #eeeeee;
+  /* background: #d68829; */
+}
+
+.point {
+  /* background: #d68829; */
 }
