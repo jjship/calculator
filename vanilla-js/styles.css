@@ -52,14 +52,14 @@ input {
   border: 1px solid black;
 }
 
-.digit {
-  /* background: #29d688; */
+.digit:hover {
+  background-color: #c9ff57;
 }
 
-.operator {
-  /* background: #d68829; */
+.operator:hover {
+  background-color: #57c9ff;
 }
 
-.point {
-  /* background: #d68829; */
+.point:hover {
+  background-color: #ff57c9;
 }

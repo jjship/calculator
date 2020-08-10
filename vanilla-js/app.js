@@ -41,11 +41,8 @@ function setButtonClassName(button, item) {
   if (isOperator(item)) {
     button.className = "operator";
   }
-  if (item === "C") {
-    button.className = "clear";
-  }
-  if (item === "AC") {
-    button.className = "allClear";
+  if (item === "C" || item === "AC") {
+    button.className = "operator";
   }
 }
 
