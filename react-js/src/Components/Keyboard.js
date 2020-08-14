@@ -29,7 +29,7 @@ class Keyboard extends React.Component {
   }
 
   renderKeyboard(buttonsArr) {
-    return this.state.buttons.map((button) => <Button value={button} />);
+    return buttonsArr.map((button) => <Button value={button} />);
   }
 
   render() {
