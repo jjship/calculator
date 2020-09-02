@@ -1,5 +1,5 @@
-import React from "react";
-import { Button } from "./Button";
+import React from 'react';
+import { Button } from './Button';
 
 class Keyboard extends React.Component {
   constructor(props) {
@@ -16,14 +16,14 @@ class Keyboard extends React.Component {
         8,
         9,
         0,
-        ".",
-        "/",
-        "*",
-        "-",
-        "=",
-        "+",
-        "C",
-        "AC",
+        '.',
+        '/',
+        '*',
+        '-',
+        '=',
+        '+',
+        'C',
+        'AC',
       ],
     };
   }
