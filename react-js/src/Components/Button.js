@@ -1,9 +1,9 @@
 import React from 'react';
-import { SetClassName } from '../utils/SetClassName';
+import { setClassName } from '../utils/setClassName';
 
 export const Button = (props) => {
   return (
-    <button id={props.value} className={SetClassName(props.value)}>
+    <button id={props.value} className={setClassName(props.value)}>
       {props.value}
     </button>
   );
