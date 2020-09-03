@@ -7,26 +7,26 @@ export default (state, action) => {
       if (!firstNum && inputStore === '0') {
         return {
           ...state,
-          inputStore: action.payload,
+          inputStore: String(action.payload),
         };
       }
       if (waitingForSecondNum) {
         return {
           ...state,
-          inputStore: action.payload,
+          inputStore: String(action.payload),
           waitingForSecondNum: false,
         };
       }
       return {
         ...state,
-        inputStore: (state.inputStore += action.payload),
+        inputStore: state.inputStore + String(action.payload),
       };
-    // case 'HANDLE_POINT':
-    //   if (inputStore.includes(action.payload)) return state;
-    //   return {
-    //     ...state,
-    //     inputstore: (state.inputStore += action.payload),
-    //   };
+    case 'HANDLE_POINT':
+      if (inputStore.includes(action.payload)) return state;
+      return {
+        ...state,
+        inputstore: (state.inputStore += action.payload),
+      };
     default:
       return state;
   }
