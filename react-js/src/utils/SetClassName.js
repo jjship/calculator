@@ -16,7 +16,11 @@ export const setClassName = (props) => {
     ? 'digit'
     : isPoint(props)
     ? 'point'
-    : isOperator(props) || props === 'C' || props === 'AC'
+    : isOperator(props)
     ? 'operator'
+    : props === 'C'
+    ? 'C'
+    : props === 'AC'
+    ? 'AC'
     : null;
 };
