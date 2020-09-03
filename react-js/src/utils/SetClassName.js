@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 // Check character type
 function isPoint(ch) {
-  return ch === ".";
+  return ch === '.';
 }
 function isDigit(ch) {
   return /\d/.test(ch);
@@ -11,12 +11,16 @@ function isOperator(ch) {
   return /\+|-|\*|\/|\=/.test(ch);
 }
 
-export const SetClassName = (props) => {
+export const setClassName = (props) => {
   return isDigit(props)
-    ? "digit"
+    ? 'digit'
     : isPoint(props)
-    ? "point"
-    : isOperator(props) || props === "C" || props === "AC"
-    ? "operator"
+    ? 'point'
+    : isOperator(props)
+    ? 'operator'
+    : props === 'C'
+    ? 'C'
+    : props === 'AC'
+    ? 'AC'
     : null;
 };
