@@ -1,6 +1,5 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
-import { updateDisplay } from '../utils/updateDisplay';
 import { setClassName } from '../utils/setClassName';
 
 const initialState = {

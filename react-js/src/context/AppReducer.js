@@ -1,43 +1,7 @@
-import { updateDisplay } from '../utils/updateDisplay';
+import { calculate } from '../utils/calculate';
 
 export default (state, action) => {
   const { firstNum, inputStore, waitingForSecondNum, operator } = state;
-  function calculate(operator, firstNum, secondNum) {
-    if (operator === '+') return firstNum + secondNum;
-    if (operator === '-') return firstNum - secondNum;
-    if (operator === '*') return firstNum * secondNum;
-    if (operator === '/') return firstNum / secondNum;
-    if (operator === '=') return secondNum;
-  }
-  // function setOperator(value) {
-  //   if (value === '-' && inputStore === '0') {
-  //     return { ...state, inputStore: String(value) };
-  //   } else {
-  //     return {
-  //       ...state,
-  //       operator: value,
-  //       waitingForSecondNum: true,
-  //       firstNum: parseFloat(inputStore),
-  //     };
-  //   }
-  // }
-  // function dontDivideByZero() {
-  //   alert('not able to divide by 0');
-  //   return {
-  //     ...state,
-  //     waitingForSecondNum: true,
-  //   };
-  // }
-  // function performCalc(value) {
-  //   const result = calculate(operator, firstNum, parseFloat(inputStore));
-  //   return {
-  //     ...state,
-  //     inputStore: String(result),
-  //     firstNum: result,
-  //     operator: value,
-  //     waitingForSecondNum: true,
-  //   };
-  // }
   switch (action.type) {
     case 'HANDLE_DIGIT':
       if (!firstNum && inputStore === '0') {
@@ -91,19 +55,6 @@ export default (state, action) => {
           waitingForSecondNum: true,
         };
       }
-
-    // function handleClear() {
-    //   const { waitingForSecondNum, inputStore } = state;
-    //   function clearCharacter() {
-    //     state.inputStore = inputStore.slice(0, -1);
-    //   }
-    //   function clearOperator() {
-    //     state.operator = null;
-    //     state.waitingForSecondNum = false;
-    //   }
-    //   if (waitingForSecondNum) clearOperator();
-    //   else clearCharacter();
-    // }
     case 'HANDLE_CLEAR':
       if (waitingForSecondNum) {
         return {
